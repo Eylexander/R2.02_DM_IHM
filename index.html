@@ -24,14 +24,45 @@
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <link href="./tools/style.css" rel="stylesheet">
     <script defer src="./tools/game.js"></script>
+    <script src="https://kaboomjs.com/dist/kaboom.js"></script>
+    <script defer src="./tools/user.js"></script>
 </head>
 
 <body>
 
-    
+    <h1>La vie et la mort d'un pauvre monstre...</h1>
+    <br>
+
+    <div class="wrapper">
+        <canvas id="monster">Monster</canvas>
+        
+        <div id="actionbox" class="monster">
+            <p>Monster life log</p>
+        </div>
+    </div>
+        
+    <ul id="status">
+	    <li>Life : 0</li>
+        <li>Money : 0</li>
+        <li>Awake</li>
+    </ul>
+
+    <hr>
+
+    <button id="b2">Run</button>
+    <button id="b3">Fight</button>
+    <button id="b7">Work</button>
+    <button id="b4">Sleep</button>
+    <button id="b5">Eat</button>
+    <button id="b6">Show</button>
+
+    <hr>
+
+    <button id="b1">New life</button>
+    <button id="k">Kill</button>
 
     <footer>
-        <div><p><a href="/LICENSE" target="_blank" style="color: #ffffff">Copyright &copy;</a> <a href="https://github.com/Eylexander" target="_blank" style="color: #ffffff">Eylexander</a> <a href="/LICENSE" target="_blank" style="color: #ffffff">MIT 2023</a></p></div>
+        <div><p><a href="/LICENSE" target="_blank">Copyright &copy;</a> <a href="https://github.com/Eylexander" target="_blank">Eylexander</a> <a href="/LICENSE" target="_blank">MIT 2023</a></p></div>
     </footer>
 
 </body>
