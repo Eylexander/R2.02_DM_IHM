@@ -8,7 +8,7 @@
     <meta name="description" content="DM en IHM">
     <meta name="author" content="Eylexander">
     <!-- <meta name="theme-color" content="#161623"> -->
-    <meta name="Access-Control-Allow-Origin" content="*">
+    <!-- <meta name="Access-Control-Allow-Origin" content="*"> -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://eylexander.xyz/IHM/">
     <meta property="og:title" content="Eylexander - Tamagochi">
@@ -24,17 +24,19 @@
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <link href="./tools/style.css" rel="stylesheet">
     <script defer src="./tools/game.js"></script>
-    <script src="https://kaboomjs.com/dist/kaboom.js"></script>
     <script defer src="./tools/user.js"></script>
+    <script src="https://kaboomjs.com/dist/kaboom.js"></script>
 </head>
 
 <body>
 
     <h1>La vie et la mort d'un pauvre monstre...</h1>
-    <br>
 
     <div class="wrapper">
-        <canvas id="monster">Monster</canvas>
+
+        <div id="canvaWrapper">
+            <canvas id="monster">Monster</canvas>
+        </div>
         
         <div id="actionbox" class="monster">
             <p>Monster life log</p>
