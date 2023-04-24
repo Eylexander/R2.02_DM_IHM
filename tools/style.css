@@ -9,31 +9,84 @@
 /* Initialize the background loader */
 
 @keyframes backgroundLoader {
-    0% {
-        opacity: 0;
-        filter: blur(8px);
-        backdrop-filter: blur(8px);
-        -webkit-filter: blur(8px);
-    }
-    100% {
+    from {
         opacity: 1;
+    }
+    to {
+        opacity: 0;
+        display: none;
+        z-index: -1;
     }
 }
 @-webkit-keyframes backgroundLoader {
-    0% {
-        opacity: 0;
-        filter: blur(8px);
-        backdrop-filter: blur(8px);
-        -webkit-filter: blur(8px);
-    }
-    100% {
+    from {
         opacity: 1;
     }
+    to {
+        opacity: 0;
+        display: none;
+        z-index: -1;
+    }
+}
+
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--black);
+    z-index: 10;
+    opacity: 1;
+    -moz-animation: backgroundLoader 2s ease-in-out;
+    -webkit-animation: backgroundLoader 2s ease-in-out;
+    -o-animation: backgroundLoader 2s ease-in-out;
+    animation: backgroundLoader 2s ease-in-out;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
 }
   
 /* End of init Background Loader */
 
+/* Initialize the scroll bar */
+
+html {
+    width: 100%;
+    height: 100%;
+  
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  html::-webkit-scrollbar {
+      display: none;
+  }
+
+/* End of init scroll bar */
+
 /* Initialize the main css properties */
+
+@media screen and (orientation: portrait) {
+    .wrapper {
+        flex-direction: column !important;
+        margin: 5% 15% !important;
+    }
+
+    #actionbox {
+        margin-bottom: 10%;
+        width: 90% !important;
+    }
+
+    button {
+        margin: 2vh 1vw;
+    }
+
+    footer {
+        position: static !important;
+    }
+}
 
 body {
     margin: 0;
@@ -99,7 +152,13 @@ hr {
 
 /* Initialize the buttons */
 
-/* CSS */
+.buttonWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 20%;
+}
+
 button {
   background-color: #fbeee0;
   border: 2px solid #422800;
@@ -110,12 +169,11 @@ button {
   display: inline-block;
   font-weight: 600;
   font-size: 3vh;
-  padding: 0 18px;
+  padding: 0 5vh;
   line-height: 6vh;
   text-align: center;
   text-decoration: none;
-  width: 10%;
-  margin: 2vh 1vw;
+  margin: 3vh 1vw;
 }
 
 button:hover {
@@ -163,7 +221,7 @@ footer {
     appearance: none;
     border-style: none;
     font-size: 2.5vh;
-    margin-bottom: 5vh;
+    margin: 3vh 1vh;
 }
 
 footer a {

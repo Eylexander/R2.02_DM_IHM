@@ -18,8 +18,7 @@ function start() {
     });
 
     // Définition de l'animation du monstre
-    loadRoot("images/");
-    loadSprite("dino", "dino.png", {
+    loadSprite("dino", "images/dino.png", {
         sliceX: 4,
         anims: {
             "idle" : {

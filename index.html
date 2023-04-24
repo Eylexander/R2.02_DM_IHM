@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="DM en IHM">
     <meta name="author" content="Eylexander">
-    <!-- <meta name="theme-color" content="#161623"> -->
-    <!-- <meta name="Access-Control-Allow-Origin" content="*"> -->
+    <meta name="theme-color" content="#161623">
+    <meta name="Access-Control-Allow-Origin" content="*">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://eylexander.xyz/IHM/">
     <meta property="og:title" content="Eylexander - Tamagochi">
@@ -30,13 +30,13 @@
 
 <body>
 
+    <div id="loader"></div>
+
     <h1>La vie et la mort d'un pauvre monstre...</h1>
 
     <div class="wrapper">
 
-        <div id="canvaWrapper">
-            <canvas id="monster">Monster</canvas>
-        </div>
+        <canvas id="monster">Monster</canvas>
         
         <div id="actionbox" class="monster">
             <p>Monster life log</p>
@@ -51,17 +51,16 @@
 
     <hr>
 
-    <button id="b2">Run</button>
-    <button id="b3">Fight</button>
-    <button id="b7">Work</button>
-    <button id="b4">Sleep</button>
-    <button id="b5">Eat</button>
-    <button id="b6">Show</button>
-
-    <hr>
-
-    <button id="b1">New life</button>
-    <button id="k">Kill</button>
+    <div class="buttonWrapper">
+        <button id="b2">Run</button>
+        <button id="b3">Fight</button>
+        <button id="b7">Work</button>
+        <button id="b4">Sleep</button>
+        <button id="b5">Eat</button>
+        <button id="b6">Show</button>
+        <button id="b1">New life</button>
+        <button id="k">Kill</button>
+    </div>
 
     <footer>
         <div><p><a href="/LICENSE" target="_blank">Copyright &copy;</a> <a href="https://github.com/Eylexander" target="_blank">Eylexander</a> <a href="/LICENSE" target="_blank">MIT 2023</a></p></div>
