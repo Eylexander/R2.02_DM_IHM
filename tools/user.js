@@ -130,11 +130,4 @@ mediaQuery.addEventListener('change', () => {
 start();
 
 // Resolution de CORS
-var ctx = canva.getContext('2d');
-
-var img = new Image();
-img.crossOrigin = "null";
-img.src = "https://eylexander.xyz/IHM/images/dino.png";
-img.onload = function() {
-    ctx.drawImage(img, 0, 0);
-}
+// var ctx = canva.getContext('2d');
