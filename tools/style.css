@@ -90,7 +90,7 @@ html::-webkit-scrollbar {
 /* Initialize the main css properties */
 
 @media screen and (orientation: portrait) {
-    .wrapper {
+    #wrapper {
         flex-direction: column !important;
         margin: 5% 15% !important;
     }
@@ -124,7 +124,7 @@ h1 {
     margin: 0;
 }
 
-.wrapper {
+#wrapper {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -169,6 +169,23 @@ hr {
     list-style: none;
     margin: 0 20%;
     padding: 0;
+}
+
+/* Healthbar */
+#health {
+    width: 40%;
+    appearance: none;
+}
+
+#health::-webkit-progress-bar {
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid #000;
+}
+
+#health::-webkit-progress-value {
+    background-color: var(--color-health);
+    border-radius: 10px;
 }
 
 /* End of init main css properties */
@@ -225,6 +242,10 @@ button:active {
     button:hover {
         background-color: #8e8d95;
         color: var(--black);
+    }
+    #health::-webkit-progress-bar {
+        background-color: var(--black);
+        border: 1px solid #fff;
     }
 }
 

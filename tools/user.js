@@ -29,7 +29,7 @@ function start() {
     // Définition de l'animation du monstre
     // loadSprite("dino", `images/${dinos[Math.floor(Math.random() * dinos.length)]}`, {
     loadSprite("dino", `images/dino.png`, {
-        sliceX: 9,
+        sliceX: 13,
         anims: {
             "idle" : {
                 from: 0,
@@ -43,7 +43,13 @@ function start() {
                 speed: 3,
                 loop: true,
             },
-            "jump" : 8
+            "sleep" : {
+                from: 8,
+                to: 11,
+                speed: 1,
+                loop: true,
+            },
+            "dead" : 12
         },
     });
 
@@ -120,14 +126,34 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
     window.makeMonsterDead = makeMonsterDead;
 }
 
-// Fonction qui détruit tout l'avatar du monstre lors d'un changement de mode de couleur
-mediaQuery.addEventListener('change', () => {
+function kaboomreload() {
     destroy();
     start();
-});
+}
 
-// Lancement de la fonction start()
-start();
+switch (window.location.protocol) {
+    case 'http:':
+    case 'https:':
+        // Fonction qui détruit tout l'avatar du monstre lors d'un changement de mode de couleur
+        mediaQuery.addEventListener('change', () => {
+            kaboomreload();
+        });
 
-// Resolution de CORS
-// var ctx = canva.getContext('2d');
+        // Lancement de la fonction start()
+        start();
+        break;
+
+    case 'file:':
+        document.getElementById("monster").remove();
+        const image = document.createElement("img");
+        let getWrapper = document.getElementById("wrapper");
+        image.src = "images/dinoPlaceHolder.png";
+        image.style.maxHeight = "150px";
+        image.style.maxWidth = "150px";
+        image.style.transform = "scale(4)";
+        getWrapper.insertBefore(image, getWrapper.childNodes[0]);
+        break;
+        
+    default:
+        break;
+}

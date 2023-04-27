@@ -12,6 +12,7 @@ let k = document.getElementById("k");   // Kill
 
 let actionbox = document.getElementById("actionbox"); // Boite d'action
 let status = document.querySelector("#status"); // Boite de status
+let healthbar = document.querySelector("#health"); // Barre de vie
 
 // Ajout des évènements aux boutons
 b1.addEventListener('click', newLife);
@@ -38,18 +39,13 @@ function showme() {
     log(`Nom : ${nom}    Vie : ${life}   Argent : ${money}`);
 }
 
-function go() {
+function goLoaded() {
     init(prompt("Quel est le nom de votre monstre ?"), 100, 0);
     displayStatus(life, money, awake);
 }
 
-// window.onload = go;
-init("Dino", 100, 0);
-
 window.addEventListener('load' , () => {
-    init ("Dino", 100, 0);
-    // go();
-    displayStatus(life, money, awake);
+    goLoaded();
 
     setInterval(() => {
         hasard();
@@ -69,9 +65,13 @@ function displayStatus(life, money, awake) {
     status.childNodes[3].innerHTML = `Money : ${money}`;
     status.childNodes[5].innerHTML = awake && life > 0 ? "Awake" : life <= 0 ? "Dead" : "Sleeping";
 
-    if (life <= 0) {
+    if (life <= 0 && ['http:','https:'].includes(window.location.protocol)) {
         makeMonsterDead();
     }
+
+    healthbar.value = Math.floor(life / 4);
+    healthbar.style.setProperty("--color-health", `hsl(${life * 1.2}, 100%, 50%)`);
+
 }
 
 function run() {
@@ -87,9 +87,11 @@ function run() {
         }
     }
     displayStatus(life, money, awake);
-    
-    // Appel de la fonction makeMonsterRun de user.js
-    makeMonsterRun();
+
+    if (['http:','https:'].includes(window.location.protocol) && awake) {
+        // Appel de la fonction makeMonsterRun de user.js
+        makeMonsterRun();
+    }
 }
 
 function fight() {
@@ -108,8 +110,10 @@ function fight() {
     }
     displayStatus(life, money, awake);
 
-    // Appel de la fonction makeMonsterFight de user.js
-    makeMonsterFight();
+    if (['http:','https:'].includes(window.location.protocol) && awake) {
+        // Appel de la fonction makeMonsterFight de user.js
+        makeMonsterFight();
+    }
 }
 
 function work() {
@@ -149,6 +153,11 @@ function eat() {
 }
 
 function sleep() {
+    if (['http:','https:'].includes(window.location.protocol) && awake) {
+        // Appel de la fonction makeMonsterSleep de user.js
+        makeMonsterSleep();
+    }
+    
     if (life <= 0) {
         log("Vous êtes mort...");
     } else if (!awake) {
@@ -167,9 +176,6 @@ function sleep() {
         }, 7000);
     }
     displayStatus(life, money, awake);
-
-    // Appel de la fonction makeMonsterSleep de user.js
-    makeMonsterSleep();
 }
 
 function hasard() {
@@ -180,10 +186,12 @@ function hasard() {
 function kill() {
     life = 0;
     awake = false;
+    log("Vous êtes mort...")
     displayStatus(life, money, awake);
 }
 
 function newLife() {
     init(prompt("Quel est le nom de votre monstre ?"), 100, 0);
     displayStatus(life, money, awake);
+    kaboomreload();
 }
