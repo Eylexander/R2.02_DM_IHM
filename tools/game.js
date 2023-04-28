@@ -49,7 +49,9 @@ window.addEventListener('load' , () => {
 
     setInterval(() => {
         hasard();
+        makeMonsterMoney();
     }, 12000);
+    makeMonsterName();
 });
 
 function log(message) {

@@ -1,13 +1,13 @@
 // Variable regardant le mode de couleur de l'utilisateur
 const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 const canva = document.getElementById("monster");
+let textNom = false;
 
-// Fonction qui défini tout l'avatar du monstre mais qui peut être rappelé à chaque changement de mode de couleur
 function start() {
     // Définition de la couleur de fond en fonction du mode de couleur de l'utilisateur
     const bg = mediaQuery.matches ? [22, 22, 35] : [255, 255, 255];
 
-    // Définition de la taille de la fenêtre
+    // Définition du canva spécial Kaboom
     kaboom({
         fullscreen: false,
         canvas: canva,
@@ -24,11 +24,14 @@ function start() {
         "dino-red.png",
         "dino-yellow.png",
         "dino-green.png",
+        "dino-pink.png",
+        "dino-orange.png",
+        "dino-black.png",
+        "dino-white.png",
     ];
 
     // Définition de l'animation du monstre
-    // loadSprite("dino", `images/${dinos[Math.floor(Math.random() * dinos.length)]}`, {
-    loadSprite("dino", `images/dino.png`, {
+    loadSprite("dino", `images/${dinos[Math.floor(Math.random() * dinos.length)]}`, {
         sliceX: 13,
         anims: {
             "idle" : {
@@ -75,30 +78,46 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
         }),
         "monster",
     ]);
-
     monster.shader = null;
-
-    // Définition de l'animation du monstre
     monster.play("idle");
 
-    
-    // Définition des évènements clavier
-    document.addEventListener('click', () => {
+    function makeMonsterName() {
+        if (nom && !textNom) {
+            add([
+                text(nom, {
+                    size: 18,
+                    font: "apl386",
+                }),
+                pos(center().sub(0, 50)),
+                origin("center"),
+                scale(1),
+                color(255, 255, 255),
+            ]);
+            textNom = true;
+        }
+    }
+    window.makeMonsterName = makeMonsterName;
+
+    function makeMonsterMoney() {
         monster.scaleTo(vec2(money / 40 + 4));
+    }
+    window.makeMonsterMoney = makeMonsterMoney;
+    
+    // Quand on clique dans la fenêtre, on lance la fonction makeMonsterMoney() qui permet de faire grossir le monstre en fonction de l'argent
+    document.addEventListener('click', () => {
+        makeMonsterMoney();
     });
 
-    // Jouer l'animation de course du monstre quand la fonction run() est appelée
+    // On définit une fonction qui permet de lancer l'animation course du monstre
     function makeMonsterRun() {
         monster.play("run");
         setTimeout(() => {
             monster.play("idle");
         }, 3000);
     }
-
-    // Exporter la fonction makeMonsterRun() pour pouvoir l'appeler dans game.js
     window.makeMonsterRun = makeMonsterRun;
 
-    // Jouer l'animation de sleep du monstre quand la fonction sleep() est appelée
+    // On définit une fonction qui permet de lancer l'animation sommeil du monstre
     function makeMonsterSleep() {
         monster.play("sleep");
         setTimeout(() => {
@@ -107,7 +126,7 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
     }
     window.makeMonsterSleep = makeMonsterSleep;
 
-    // Jouer l'animation d'attaque du monstre quand la fonction fight() est appelée
+    // On définit une fonction qui permet de lancer l'animation combat du monstre
     function makeMonsterFight() {
         monster.shader = "invert";
         monster.onUpdate(() => {
@@ -119,18 +138,23 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
     }
     window.makeMonsterFight = makeMonsterFight;
 
-    // Jouer l'animation de mort du monstre quand la fonction kill() est appelée
+    // On définit une fonction qui permet de lancer l'animation mort du monstre
     function makeMonsterDead() {
         monster.play("dead");
     }
     window.makeMonsterDead = makeMonsterDead;
 }
 
+// Fonction qui permet de détruire et reconstruire le monstre
 function kaboomreload() {
     destroy();
+    textNom = false;
     start();
+    makeMonsterName();
 }
 
+// Pour des raisons de protocoles CORS
+// On réagit en fonction du protocole de la page
 switch (window.location.protocol) {
     case 'http:':
     case 'https:':
@@ -139,11 +163,12 @@ switch (window.location.protocol) {
             kaboomreload();
         });
 
-        // Lancement de la fonction start()
+        // Lancement de la fonction start() au chargement de la page
         start();
         break;
 
     case 'file:':
+        // Si on est en local, on remplace le monstre par une image
         document.getElementById("monster").remove();
         const image = document.createElement("img");
         let getWrapper = document.getElementById("wrapper");
@@ -155,5 +180,6 @@ switch (window.location.protocol) {
         break;
         
     default:
+        // On ne fait rien puisque le protocole n'est pas reconnu
         break;
 }
