@@ -82,6 +82,7 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
     monster.play("idle");
 
     function makeMonsterName() {
+        const textColor = mediaQuery.matches ? [255, 255, 255] : [22, 22, 35];
         if (nom && !textNom) {
             add([
                 text(nom, {
@@ -91,7 +92,7 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
                 pos(center().sub(0, 50)),
                 origin("center"),
                 scale(1),
-                color(255, 255, 255),
+                color(textColor),
             ]);
             textNom = true;
         }
