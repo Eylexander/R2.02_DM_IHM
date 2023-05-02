@@ -11,7 +11,7 @@ let b7 = document.getElementById("b7"); // Work
 let k = document.getElementById("k");   // Kill
 
 let actionbox = document.getElementById("actionbox"); // Boite d'action
-let status = document.querySelector("#status"); // Boite de status
+let statusBar = document.querySelectorAll("#status li"); // Boite de status
 let healthbar = document.querySelector("#health"); // Barre de vie
 
 // Ajout des évènements aux boutons
@@ -63,9 +63,9 @@ function log(message) {
 }
 
 function displayStatus(life, money, awake) {
-    status.childNodes[1].innerHTML = `Life : ${life}`;
-    status.childNodes[3].innerHTML = `Money : ${money}`;
-    status.childNodes[5].innerHTML = awake && life > 0 ? "Awake" : life <= 0 ? "Dead" : "Sleeping";
+    statusBar[0].innerHTML = `Life : ${life}`;
+    statusBar[1].innerHTML = `Money : ${money}`;
+    statusBar[2].innerHTML = awake && life > 0 ? "Awake" : life <= 0 ? "Dead" : "Sleeping";
 
     if (life <= 0 && ['http:','https:'].includes(window.location.protocol)) {
         makeMonsterDead();
@@ -77,10 +77,10 @@ function displayStatus(life, money, awake) {
 }
 
 function run() {
-    if (!awake) {
-        log("Vous êtes endormi...");
-    } else if (life <= 0) {
+    if (life <= 0) {
         log("Vous êtes mort...");
+    } else if (!awake) {
+        log("Vous êtes endormi...");
     }
     else {
         log("Vous êtes en train de courir...");
@@ -97,10 +97,10 @@ function run() {
 }
 
 function fight() {
-    if (!awake) {
-        log("Vous êtes endormi...");
-    } else if (life <= 0) {
+    if (life <= 0) {
         log("Vous êtes mort...");
+    } else if (!awake) {
+        log("Vous êtes endormi...");
     }
     else {
         log("Vous êtes en train de combattre...");
@@ -119,10 +119,10 @@ function fight() {
 }
 
 function work() {
-    if (!awake) {
-        log("Vous êtes endormi...");
-    } else if (life <= 0) {
+    if (life <= 0) {
         log("Vous êtes mort...");
+    } else if (!awake) {
+        log("Vous êtes endormi...");
     }
     else {
         log("Vous êtes en train de travailler...");
@@ -135,10 +135,10 @@ function work() {
 }
 
 function eat() {
-    if (!awake) {
-        log("Vous êtes endormi...");
-    } else if (life <= 0) {
+    if (life <= 0) {
         log("Vous êtes mort...");
+    } else if (!awake) {
+        log("Vous êtes endormi...");
     } else if (money <= 3) {
         log("Vous n'avez pas assez d'argent...");
     }
