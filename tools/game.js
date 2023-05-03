@@ -36,12 +36,16 @@ function init(n, l, m) {
 
 // Fonction qui affiche les stats du monstre
 function showme() {
-    log(`Nom : ${nom}    Vie : ${life}   Argent : ${money}`);
+    log(`Nom : ${nom} | Vie : ${life} | Argent : ${money}`);
 }
 
 function goLoaded() {
     init(prompt("Quel est le nom de votre monstre ?"), 100, 0);
     displayStatus(life, money, awake);
+
+    if (window.location.protocol == "file:") {
+        makeFileLocationName(nom);
+    }
 }
 
 window.addEventListener('load' , () => {
@@ -49,9 +53,15 @@ window.addEventListener('load' , () => {
 
     setInterval(() => {
         hasard();
-        makeMonsterMoney();
+        if (['http:','https:'].includes(window.location.protocol)) {
+            makeMonsterMoney();
+        }
     }, 12000);
-    makeMonsterName();
+    if (['http:','https:'].includes(window.location.protocol)) {
+        makeMonsterName();
+    } else {
+        makeFileLocationName(nom);
+    }
 });
 
 function log(message) {
@@ -139,7 +149,7 @@ function eat() {
         log("Vous êtes mort...");
     } else if (!awake) {
         log("Vous êtes endormi...");
-    } else if (money <= 3) {
+    } else if (money < 3) {
         log("Vous n'avez pas assez d'argent...");
     }
     else {
@@ -193,7 +203,10 @@ function kill() {
 }
 
 function newLife() {
-    init(prompt("Quel est le nom de votre monstre ?"), 100, 0);
-    displayStatus(life, money, awake);
-    kaboomreload();
+    goLoaded();
+    if (['http:','https:'].includes(window.location.protocol)) {
+        kaboomreload();
+    } else {
+        makeFileLocationName(nom);
+    }
 }

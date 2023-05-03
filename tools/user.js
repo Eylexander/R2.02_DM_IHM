@@ -6,6 +6,7 @@ let textNom = false;
 function start() {
     // Définition de la couleur de fond en fonction du mode de couleur de l'utilisateur
     const bg = mediaQuery.matches ? [22, 22, 35] : [255, 255, 255];
+    const textColor = mediaQuery.matches ? [255, 255, 255] : [22, 22, 35];
 
     // Définition du canva spécial Kaboom
     kaboom({
@@ -82,7 +83,6 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
     monster.play("idle");
 
     function makeMonsterName() {
-        const textColor = mediaQuery.matches ? [255, 255, 255] : [22, 22, 35];
         if (nom && !textNom) {
             add([
                 text(nom, {
@@ -156,6 +156,8 @@ function kaboomreload() {
 
 // Pour des raisons de protocoles CORS
 // On réagit en fonction du protocole de la page
+var getWrapper = document.getElementById("wrapper");
+var getPNom = document.getElementById("monsterName");
 switch (window.location.protocol) {
     case 'http:':
     case 'https:':
@@ -171,16 +173,28 @@ switch (window.location.protocol) {
     case 'file:':
         // Si on est en local, on remplace le monstre par une image
         document.getElementById("monster").remove();
-        const image = document.createElement("img");
-        let getWrapper = document.getElementById("wrapper");
+        let image = document.createElement("img");
         image.src = "images/dinoPlaceHolder.png";
         image.style.maxHeight = "150px";
         image.style.maxWidth = "150px";
         image.style.transform = "scale(4)";
         getWrapper.insertBefore(image, getWrapper.childNodes[0]);
+        makeFileLocationName(nom);
+
+        mediaQuery.addEventListener('change', () => {
+            getPNom.style.color = mediaQuery.matches ? [255, 255, 255] : [22, 22, 35];
+        });
         break;
         
     default:
         // On ne fait rien puisque le protocole n'est pas reconnu
         break;
+}
+
+function makeFileLocationName(name) {
+    if (nom) {
+        getPNom.innerHTML = name;
+        getPNom.style.color = mediaQuery.matches ? [255, 255, 255] : [22, 22, 35];
+        textNom = true;
+    }
 }
