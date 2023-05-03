@@ -103,11 +103,6 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
         monster.scaleTo(vec2(money / 40 + 4));
     }
     window.makeMonsterMoney = makeMonsterMoney;
-    
-    // Quand on clique dans la fenêtre, on lance la fonction makeMonsterMoney() qui permet de faire grossir le monstre en fonction de l'argent
-    document.addEventListener('click', () => {
-        makeMonsterMoney();
-    });
 
     // On définit une fonction qui permet de lancer l'animation course du monstre
     function makeMonsterRun() {

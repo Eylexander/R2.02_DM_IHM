@@ -53,9 +53,6 @@ window.addEventListener('load' , () => {
 
     setInterval(() => {
         hasard();
-        if (['http:','https:'].includes(window.location.protocol)) {
-            makeMonsterMoney();
-        }
     }, 12000);
     if (['http:','https:'].includes(window.location.protocol)) {
         makeMonsterName();
@@ -79,6 +76,7 @@ function displayStatus(life, money, awake) {
 
     if (life <= 0 && ['http:','https:'].includes(window.location.protocol)) {
         makeMonsterDead();
+        makeMonsterMoney();
     }
 
     healthbar.value = Math.floor(life / 4);
