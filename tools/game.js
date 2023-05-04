@@ -64,9 +64,7 @@ window.addEventListener('load' , () => {
 function log(message) {
     let p = document.createElement("p");
     p.innerHTML = message;
-    actionbox.appendChild(p);
-
-    actionbox.scrollTop = actionbox.scrollHeight;
+    actionbox.insertBefore(p, actionbox.firstChild);
 }
 
 function displayStatus(life, money, awake) {
