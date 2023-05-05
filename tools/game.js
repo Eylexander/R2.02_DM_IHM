@@ -74,6 +74,7 @@ function displayStatus(life, money, awake) {
 
     if (life <= 0 && ['http:','https:'].includes(window.location.protocol)) {
         makeMonsterDead();
+    } else if (['http:','https:'].includes(window.location.protocol)) {
         makeMonsterMoney();
     }
 
